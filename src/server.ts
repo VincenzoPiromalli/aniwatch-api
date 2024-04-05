@@ -38,23 +38,6 @@ if (!Boolean(process?.env?.IS_VERCEL_DEPLOYMENT)) {
   app.listen(PORT, () => {
     console.log(`⚔️  api @ http://localhost:${PORT}`);
   });
-
-  // NOTE: remove the `if` block below for personal deployments
-  if (ISNT_PERSONAL_DEPLOYMENT) {
-    // don't sleep
-    const intervalTime = 9 * 60 * 1000; // 9mins
-    setInterval(() => {
-      console.log("HEALTHCHECK ;)", new Date().toLocaleString());
-      https
-        .get(
-          new URL("/health", `https://${process.env.ANIWATCH_API_HOSTNAME}`)
-            .href
-        )
-        .on("error", (err) => {
-          console.error(err.message);
-        });
-    }, intervalTime);
-  }
 }
 
 export default app;
